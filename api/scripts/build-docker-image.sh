@@ -6,9 +6,9 @@
 
 REGISTRY=slowback1
 BUILD_NUMBER=1
-PROJECT_NAME=slowback-boardgame-session-tracker-frontend
+PROJECT_NAME=slowback-boardgame-session-tracker-api
 
-cd $(git rev-parse --show-toplevel)/frontend || exit 1
+cd $(git rev-parse --show-toplevel)/api || exit 1
 
 if [ -z ${REGISTRY} ]; then
   echo "REGISTRY is unset, please set it before running this script";
@@ -27,7 +27,7 @@ fi
 
 TAG="${PROJECT_NAME}:${BUILD_NUMBER}"
 
-docker build -t=${TAG} -f docker/Dockerfile --target=final .
+docker build -t=${TAG} -f Api.SlowbackBgSession/Dockerfile --target=final .
 docker image tag ${TAG} ${REGISTRY}/${TAG}
 
 docker image push ${REGISTRY}/${TAG}
