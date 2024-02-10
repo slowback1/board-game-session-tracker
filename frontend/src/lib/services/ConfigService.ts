@@ -3,6 +3,7 @@ import { Messages } from '../bus/Messages';
 
 export type ApplicationConfig = {
 	key: string;
+	baseUrl: string;
 };
 
 export default class ConfigService {
