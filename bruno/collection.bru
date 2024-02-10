@@ -1,0 +1,15 @@
+auth {
+  mode: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+script:pre-request {
+  let storedUsername = bru.getEnvVar("login-username")
+  
+  if(!storedUsername){
+    bru.setNextRequest("Create User");
+  }
+}

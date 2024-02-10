@@ -1,0 +1,16 @@
+meta {
+  name: Get Currently Logged In User
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url}}/User
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.response.username: eq {{login-username}}
+}

@@ -1,0 +1,20 @@
+meta {
+  name: Get Currently Logged In User (No Token)
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{url}}/User
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: a
+}
+
+assert {
+  res.body.errors[0]: eq "Token is either missing or not valid"
+  res.body.response: isNull 
+}
