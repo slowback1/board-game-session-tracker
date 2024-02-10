@@ -38,7 +38,7 @@ public class UserRepository : DbRepository
                 }
             };
 
-        var token = new TokenGenerator(_signingKey).GenerateToken(result);
+        var token = new TokenProvider(_signingKey).GenerateToken(result);
 
         return new ApiResponse<LoginResponse>
         {

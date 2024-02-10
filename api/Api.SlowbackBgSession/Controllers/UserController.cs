@@ -1,5 +1,4 @@
-﻿using Api.SlowbackBgSession.Config;
-using Database.Common.DTOs;
+﻿using Database.Common.DTOs;
 using Database.Common.User;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,9 +12,7 @@ public class UserController : BaseController
 
     public UserController(IConfiguration config) : base(config)
     {
-        var jwtConfig = config.GetSection("Jwt").Get<JwtConfig>()!;
-
-        _repository = new UserRepository(Storer, jwtConfig.Key);
+        _repository = new UserRepository(Storer, JwtConfig.Key);
     }
 
     [HttpPost("CreateUser")]
@@ -28,5 +25,23 @@ public class UserController : BaseController
     public async Task<ApiResponse<LoginResponse>> Login(LoginDTO dto)
     {
         return await _repository.Login(dto);
+    }
+
+    [HttpGet("")]
+    public async Task<ApiResponse<UserDTO>> GetCurrentlyLoggedInUser()
+    {
+        if (AuthenticatedUser != null)
+            return new ApiResponse<UserDTO>
+            {
+                Response = AuthenticatedUser
+            };
+
+        return new ApiResponse<UserDTO>
+        {
+            Errors = new List<string>
+            {
+                "Token is either missing or not valid"
+            }
+        };
     }
 }
