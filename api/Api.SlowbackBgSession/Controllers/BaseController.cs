@@ -10,7 +10,7 @@ namespace Api.SlowbackBgSession.Controllers;
 
 public abstract class BaseController : Controller
 {
-    protected readonly JwtConfig JwtConfig;
+    public readonly JwtConfig JwtConfig;
     protected readonly IDataStorer Storer;
 
     public BaseController(IConfiguration config)

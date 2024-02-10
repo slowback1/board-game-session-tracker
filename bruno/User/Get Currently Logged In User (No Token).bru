@@ -15,6 +15,5 @@ auth:bearer {
 }
 
 assert {
-  res.body.errors[0]: eq "Token is either missing or not valid"
-  res.body.response: isNull 
+  res.status: eq 401
 }

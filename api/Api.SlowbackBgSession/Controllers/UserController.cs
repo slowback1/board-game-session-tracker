@@ -1,4 +1,5 @@
-﻿using Database.Common.DTOs;
+﻿using Api.SlowbackBgSession.Attributes;
+using Database.Common.DTOs;
 using Database.Common.User;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +29,7 @@ public class UserController : BaseController
     }
 
     [HttpGet("")]
+    [Authenticated]
     public async Task<ApiResponse<UserDTO>> GetCurrentlyLoggedInUser()
     {
         if (AuthenticatedUser != null)
