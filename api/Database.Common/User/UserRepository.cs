@@ -5,8 +5,11 @@ namespace Database.Common.User;
 
 public class UserRepository : DbRepository
 {
-    public UserRepository(IDataStorer storer) : base(storer)
+    private readonly string _signingKey;
+
+    public UserRepository(IDataStorer storer, string signingKey) : base(storer)
     {
+        _signingKey = signingKey;
     }
 
     public async Task<ApiResponse<UserDTO>> CreateUser(CreateUserDTO dto)
@@ -19,6 +22,31 @@ public class UserRepository : DbRepository
         return new ApiResponse<UserDTO>
         {
             Response = result
+        };
+    }
+
+    public async Task<ApiResponse<LoginResponse>> Login(LoginDTO dto)
+    {
+        var result = await _storer.VerifyLogin(dto.Username, dto.Password);
+
+        if (result is null)
+            return new ApiResponse<LoginResponse>
+            {
+                Errors = new List<string>
+                {
+                    "Invalid username or password."
+                }
+            };
+
+        var token = new TokenGenerator(_signingKey).GenerateToken(result);
+
+        return new ApiResponse<LoginResponse>
+        {
+            Response = new LoginResponse
+            {
+                Token = token,
+                User = result
+            }
         };
     }
 

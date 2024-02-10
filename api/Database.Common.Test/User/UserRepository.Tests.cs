@@ -18,7 +18,7 @@ public class UserRepositoryTests : BaseDbTest
     [SetUp]
     public void SetUpCreator()
     {
-        _repository = new UserRepository(DataStorer);
+        _repository = new UserRepository(DataStorer, "areallyreallyreallyreallylongsigning_key");
     }
 
     [Test]
@@ -83,5 +83,66 @@ public class UserRepositoryTests : BaseDbTest
 
         Assert.That(result.Errors.Count, Is.GreaterThan(0));
         Assert.That(result.Errors[0], Is.EqualTo("Password must be filled out."));
+    }
+
+    [Test]
+    public async Task CanLoginAndReceiveAToken()
+    {
+        var result = await _repository.Login(new LoginDTO
+        {
+            Username = "username",
+            Password = "password"
+        });
+
+        Assert.That(string.IsNullOrEmpty(result.Response?.Token), Is.False);
+    }
+
+    [Test]
+    public async Task LoginResultIsAValidJWT()
+    {
+        var result = await _repository.Login(new LoginDTO
+        {
+            Username = "username",
+            Password = "password"
+        });
+
+        Assert.That(result.Response.Token, Contains.Substring("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"));
+    }
+
+    [Test]
+    public async Task LoginResultContainsUser()
+    {
+        var result = await _repository.Login(new LoginDTO
+        {
+            Username = "user",
+            Password = "passs"
+        });
+
+        Assert.That(result.Response.User.Username, Is.EqualTo("user"));
+    }
+
+    [Test]
+    public async Task LoginWithWrongPasswordSendsNullResult()
+    {
+        var result = await _repository.Login(new LoginDTO
+        {
+            Username = "username",
+            Password = "invalid"
+        });
+
+        Assert.That(result.Response, Is.Null);
+    }
+
+    [Test]
+    public async Task LoginWithWrongPasswordSendsErrorMessage()
+    {
+        var result = await _repository.Login(new LoginDTO
+        {
+            Username = "username",
+            Password = "invalid"
+        });
+
+        Assert.That(result.Errors.Count, Is.GreaterThan(0));
+        Assert.That(result.Errors, Contains.Item("Invalid username or password."));
     }
 }

@@ -23,4 +23,16 @@ public class TestDataStorer : IDataStorer
             UserId = "1234"
         };
     }
+
+    public async Task<UserDTO?> VerifyLogin(string username, string password)
+    {
+        if (password == "invalid") return null;
+
+        return new UserDTO
+        {
+            Username = username,
+            CreatedAt = DateTime.Now,
+            UserId = "1234"
+        };
+    }
 }

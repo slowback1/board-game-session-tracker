@@ -1,5 +1,6 @@
 ﻿using Database.Common.DTOs;
 using Database.Common.Storers;
+using Database.Common.User;
 using Database.Supabase.Models;
 using Supabase;
 
@@ -40,5 +41,24 @@ public class SupabaseStorer : IDataStorer
             CreatedAt = createdUser.CreatedAt,
             UserId = createdUser.Id
         };
+    }
+
+    public async Task<UserDTO?> VerifyLogin(string username, string password)
+    {
+        var user = await _client.From<User>().Where(u => u.UserName == username).Get();
+
+        if (user.Model is null) return null;
+
+        var passwordIsValid = PasswordHasher.Verify(password, user.Model.PasswordHash);
+
+        if (passwordIsValid)
+            return new UserDTO
+            {
+                Username = username,
+                CreatedAt = user.Model.CreatedAt,
+                UserId = user.Model.Id
+            };
+
+        return null;
     }
 }

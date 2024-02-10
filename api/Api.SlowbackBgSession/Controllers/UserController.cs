@@ -1,4 +1,5 @@
-﻿using Database.Common.DTOs;
+﻿using Api.SlowbackBgSession.Config;
+using Database.Common.DTOs;
 using Database.Common.User;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,12 +13,20 @@ public class UserController : BaseController
 
     public UserController(IConfiguration config) : base(config)
     {
-        _repository = new UserRepository(Storer);
+        var jwtConfig = config.GetSection("Jwt").Get<JwtConfig>()!;
+
+        _repository = new UserRepository(Storer, jwtConfig.Key);
     }
 
     [HttpPost("CreateUser")]
     public async Task<ApiResponse<UserDTO>> CreateUser(CreateUserDTO dto)
     {
         return await _repository.CreateUser(dto);
+    }
+
+    [HttpPost("Login")]
+    public async Task<ApiResponse<LoginResponse>> Login(LoginDTO dto)
+    {
+        return await _repository.Login(dto);
     }
 }
