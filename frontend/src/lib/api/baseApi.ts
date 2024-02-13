@@ -2,6 +2,11 @@ import MessageBus from '$lib/bus/MessageBus';
 import { Messages } from '$lib/bus/Messages';
 import ConfigService from '$lib/services/ConfigService';
 
+export interface ApiResponse<T> {
+	errors?: string[];
+	response?: T;
+}
+
 export default abstract class BaseApi {
 	private async request<T>(url: string, request: RequestInit = {}): Promise<T> {
 		let options: RequestInit = {

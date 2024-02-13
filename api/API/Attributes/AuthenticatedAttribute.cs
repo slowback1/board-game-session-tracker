@@ -1,9 +1,9 @@
-﻿using Api.SlowbackBgSession.Controllers;
+﻿using API.Controllers;
 using Database.Common.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Api.SlowbackBgSession.Attributes;
+namespace API.Attributes;
 
 public class AuthenticatedAttribute : ActionFilterAttribute
 {

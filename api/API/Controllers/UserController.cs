@@ -1,9 +1,9 @@
-﻿using Api.SlowbackBgSession.Attributes;
+﻿using API.Attributes;
 using Database.Common.DTOs;
 using Database.Common.User;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.SlowbackBgSession.Controllers;
+namespace API.Controllers;
 
 [ApiController]
 [Route("[controller]")]

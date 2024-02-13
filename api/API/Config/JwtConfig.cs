@@ -1,4 +1,4 @@
-﻿namespace Api.SlowbackBgSession.Config;
+﻿namespace API.Config;
 
 public class JwtConfig
 {

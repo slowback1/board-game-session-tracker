@@ -1,4 +1,4 @@
-﻿using Api.SlowbackBgSession.Config;
+﻿using API.Config;
 using Database.Common.DTOs;
 using Database.Common.Storers;
 using Database.Common.User;
@@ -6,7 +6,7 @@ using Database.Supabase;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Api.SlowbackBgSession.Controllers;
+namespace API.Controllers;
 
 public abstract class BaseController : Controller
 {

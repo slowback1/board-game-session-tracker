@@ -1,4 +1,4 @@
-namespace Api.SlowbackBgSession.Test;
+namespace API.Test;
 
 public class Tests
 {

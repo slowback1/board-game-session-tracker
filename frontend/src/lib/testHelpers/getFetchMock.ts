@@ -1,5 +1,5 @@
 export function getFetchMock(response: any, status: number = 200) {
-	let mock = vi.fn(() => {
+	let mock = vi.fn((url: string, options: RequestInit) => {
 		return Promise.resolve({
 			json(): Promise<any> {
 				return Promise.resolve(response);
