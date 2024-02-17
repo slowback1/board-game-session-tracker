@@ -10,6 +10,7 @@ import { SiteMap } from '$lib/utils/siteMap';
 
 export default class UserService {
 	errors: string[] = [];
+
 	constructor(private navigateToPage: (url: string) => void) {}
 
 	async CreateUser(username: string, password: string, confirm: string) {
@@ -91,4 +92,14 @@ export default class UserService {
 	private clearErrors() {
 		this.errors = [];
 	}
+}
+
+export function isUserLoggedIn() {
+	let token = MessageBus.getLastMessage<string>(Messages.UserToken);
+	let userData = MessageBus.getLastMessage<UserResponse>(Messages.UserData);
+
+	let hasToken = !!token;
+	let hasUserData = !!userData;
+
+	return hasToken && hasUserData;
 }

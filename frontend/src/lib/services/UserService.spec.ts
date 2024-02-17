@@ -1,6 +1,6 @@
 import { beforeEach, expect, type Mock } from 'vitest';
 import MessageBus from '$lib/bus/MessageBus';
-import UserService from '$lib/services/UserService';
+import UserService, { isUserLoggedIn } from '$lib/services/UserService';
 import { getFetchMock } from '$lib/testHelpers/getFetchMock';
 import { testLoginResponse, testUserResponse } from '$lib/testHelpers/testData/testUserData';
 import { testErrorApiResponse } from '$lib/testHelpers/testData/testApiErrorResponses';
@@ -174,6 +174,47 @@ describe('UserService', () => {
 			service.LogOut();
 
 			expect(mockNavigate).toHaveBeenCalledWith(SiteMap.home());
+		});
+	});
+
+	describe('determining if the user is logged in', () => {
+		function fillInUserToken() {
+			MessageBus.sendMessage(Messages.UserToken, 'token');
+		}
+
+		function fillInUserData() {
+			MessageBus.sendMessage(Messages.UserData, testUserResponse);
+		}
+
+		it('indicates that the user is logged in if both user token and user data are filled out', () => {
+			fillInUserToken();
+			fillInUserData();
+
+			let isLoggedIn = isUserLoggedIn();
+
+			expect(isLoggedIn).toEqual(true);
+		});
+
+		it('indicates that the user is logged out if only the user data is filled in', () => {
+			fillInUserData();
+
+			let isLoggedIn = isUserLoggedIn();
+
+			expect(isLoggedIn).toEqual(false);
+		});
+
+		it('indicates that the user is logged out if both user data and token is not filled in', () => {
+			let isLoggedIn = isUserLoggedIn();
+
+			expect(isLoggedIn).toEqual(false);
+		});
+
+		it('indicates that the user is logged out if just the token is filled in', () => {
+			fillInUserToken();
+
+			let isLoggedIn = isUserLoggedIn();
+
+			expect(isLoggedIn).toEqual(false);
 		});
 	});
 });

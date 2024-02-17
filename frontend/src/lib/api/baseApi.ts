@@ -14,6 +14,7 @@ export default abstract class BaseApi {
 			headers: {},
 			...request
 		};
+		options.headers['Content-Type'] = 'application/json';
 		options.headers['Authorization'] = this.getBearerToken();
 
 		let res = await fetch(this.getFullUrl(url), options);
