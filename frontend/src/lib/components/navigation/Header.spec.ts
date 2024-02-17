@@ -1,7 +1,10 @@
 import Header from './Header.svelte';
-import type { RenderResult } from '@testing-library/svelte';
+import { act, type RenderResult, waitFor } from '@testing-library/svelte';
 import { render } from '@testing-library/svelte';
 import { beforeEach } from 'vitest';
+import MessageBus from '$lib/bus/MessageBus';
+import { Messages } from '$lib/bus/Messages';
+import { testUserResponse } from '$lib/testHelpers/testData/testUserData';
 
 describe('Header', () => {
 	let result: RenderResult<Header>;
@@ -26,7 +29,17 @@ describe('Header', () => {
 		expect(result.container.querySelector("[href='#content']")).toBeInTheDocument();
 	});
 
-	it('contains a link to the home page', () => {
-		expect(result.container.querySelector("[href='/']")).toBeInTheDocument();
+	function LogUserIn() {
+		MessageBus.sendMessage(Messages.UserData, testUserResponse);
+		MessageBus.sendMessage(Messages.UserToken, 'token');
+	}
+
+	it('contains a link to the home page when the user is logged in', async () => {
+		act(() => {
+			LogUserIn();
+		});
+		await waitFor(() => {
+			expect(result.container.querySelector("[href='/']")).toBeInTheDocument();
+		});
 	});
 });
