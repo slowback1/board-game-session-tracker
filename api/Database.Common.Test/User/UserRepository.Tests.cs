@@ -68,7 +68,7 @@ public class UserRepositoryTests : BaseDbTest
         });
 
         Assert.That(result.Errors.Count, Is.EqualTo(1));
-        Assert.That(result.Errors[0], Is.EqualTo("Username must be filled out."));
+        Assert.That(result.Errors[0], Is.EqualTo("'Username' is required."));
     }
 
     [Test]
@@ -82,7 +82,7 @@ public class UserRepositoryTests : BaseDbTest
         });
 
         Assert.That(result.Errors.Count, Is.GreaterThan(0));
-        Assert.That(result.Errors[0], Is.EqualTo("Password must be filled out."));
+        Assert.That(result.Errors[0], Is.EqualTo("'Password' is required."));
     }
 
     [Test]
@@ -144,5 +144,29 @@ public class UserRepositoryTests : BaseDbTest
 
         Assert.That(result.Errors.Count, Is.GreaterThan(0));
         Assert.That(result.Errors, Contains.Item("Invalid username or password."));
+    }
+
+    [Test]
+    public async Task LoginSendsValidationErrorIfUsernameIsBlank()
+    {
+        var result = await _repository.Login(new LoginDTO
+        {
+            Password = "blank user"
+        });
+
+        Assert.That(result.Errors.Count, Is.GreaterThan(0));
+        Assert.That(result.Errors, Contains.Item("'Username' is required."));
+    }
+
+    [Test]
+    public async Task LoginSendsValidationErrorIfPasswordIsBlank()
+    {
+        var result = await _repository.Login(new LoginDTO
+        {
+            Username = "blank Pass"
+        });
+
+        Assert.That(result.Errors.Count, Is.GreaterThan(0));
+        Assert.That(result.Errors, Contains.Item("'Password' is required."));
     }
 }

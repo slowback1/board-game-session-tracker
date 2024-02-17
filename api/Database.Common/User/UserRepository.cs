@@ -1,5 +1,6 @@
 ﻿using Database.Common.DTOs;
 using Database.Common.Storers;
+using Validator;
 
 namespace Database.Common.User;
 
@@ -27,6 +28,10 @@ public class UserRepository : DbRepository
 
     public async Task<ApiResponse<LoginResponse>> Login(LoginDTO dto)
     {
+        var validationErrors = ObjectValidator.ValidateObject(dto);
+
+        if (validationErrors.Count > 0) return new ApiResponse<LoginResponse> { Errors = validationErrors };
+
         var result = await _storer.VerifyLogin(dto.Username, dto.Password);
 
         if (result is null)
@@ -38,6 +43,11 @@ public class UserRepository : DbRepository
                 }
             };
 
+        return HandleSuccessfulLoginResponse(result);
+    }
+
+    private ApiResponse<LoginResponse> HandleSuccessfulLoginResponse(UserDTO result)
+    {
         var token = new TokenProvider(_signingKey).GenerateToken(result);
 
         return new ApiResponse<LoginResponse>
@@ -52,16 +62,7 @@ public class UserRepository : DbRepository
 
     private ApiResponse<UserDTO>? ValidateCreateUserDTO(CreateUserDTO dto)
     {
-        var errors = new List<string>();
-
-        if (dto.Password != dto.ConfirmPassword)
-            errors.Add("Passwords must match.");
-
-        if (string.IsNullOrEmpty(dto.Username))
-            errors.Add("Username must be filled out.");
-
-        if (string.IsNullOrEmpty(dto.Password))
-            errors.Add("Password must be filled out.");
+        var errors = ObjectValidator.ValidateObject(dto);
 
         if (errors.Count > 0)
             return new ApiResponse<UserDTO>

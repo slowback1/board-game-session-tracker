@@ -1,4 +1,6 @@
-﻿namespace Database.Common.DTOs;
+﻿using Validator.Attributes;
+
+namespace Database.Common.DTOs;
 
 public class UserDTO
 {
@@ -7,16 +9,24 @@ public class UserDTO
     public string Username { get; set; }
 }
 
+[MatchingProperty(nameof(Password), nameof(ConfirmPassword), "Passwords must match.")]
 public class CreateUserDTO
 {
+    [Required]
     public string Username { get; set; }
+
+    [Required]
     public string Password { get; set; }
+
     public string ConfirmPassword { get; set; }
 }
 
 public class LoginDTO
 {
+    [Required]
     public string Username { get; set; }
+
+    [Required]
     public string Password { get; set; }
 }
 
