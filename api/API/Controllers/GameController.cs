@@ -23,4 +23,11 @@ public class GameController : BaseController
     {
         return await _repository.CreateGame(request, AuthenticatedUser.UserId);
     }
+
+    [HttpGet]
+    [Route("ForUser")]
+    public async Task<ApiResponse<List<GameDTO>>> GetGamesForUser()
+    {
+        return await _repository.GetGamesForUser(AuthenticatedUser.UserId);
+    }
 }

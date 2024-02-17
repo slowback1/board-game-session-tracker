@@ -44,4 +44,14 @@ public class GameRepositoryTests : BaseDbTest
         Assert.That(result.Errors!.Count, Is.GreaterThan(0));
         Assert.That(result.Errors, Contains.Item("Error creating game."));
     }
+
+    [Test]
+    public async Task CanGetGamesForUser()
+    {
+        var result = await _repository.GetGamesForUser("test");
+
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.Response, Is.Not.Null);
+        Assert.That(result.Response.Count, Is.GreaterThan(0));
+    }
 }

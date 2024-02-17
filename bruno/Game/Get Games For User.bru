@@ -1,0 +1,15 @@
+meta {
+  name: Get Games For User
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{url}}/Game/ForUser
+  body: none
+  auth: none
+}
+
+assert {
+  res.body.response: isDefined 
+}

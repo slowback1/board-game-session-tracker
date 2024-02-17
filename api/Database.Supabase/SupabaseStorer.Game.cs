@@ -28,9 +28,16 @@ public partial class SupabaseStorer
         return await GetGameFromId(createdGame.Id);
     }
 
-    public Task<List<GameDTO>> GetGamesForUser(string userId)
+    public async Task<List<GameDTO>> GetGamesForUser(string userId)
     {
-        throw new NotImplementedException();
+        var gameResult = await _client.From<GamePlayer>().Where(gp => gp.PlayerId == userId).Get();
+        var games = gameResult.Models;
+
+        var gameDtos = new List<GameDTO>();
+
+        foreach (var game in games) gameDtos.Add(await GetGameFromId(game.GameId));
+
+        return gameDtos;
     }
 
     private async Task<GameDTO> GetGameFromId(string gameId)

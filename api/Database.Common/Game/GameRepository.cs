@@ -29,6 +29,16 @@ public class GameRepository : DbRepository
         };
     }
 
+    public async Task<ApiResponse<List<GameDTO>>> GetGamesForUser(string userId)
+    {
+        var result = await _storer.GetGamesForUser(userId);
+
+        return new ApiResponse<List<GameDTO>>
+        {
+            Response = result
+        };
+    }
+
     private List<string>? GetErrorsForCreateGameResult(GameDTO? dto)
     {
         if (dto is null)
