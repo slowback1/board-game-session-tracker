@@ -5,7 +5,9 @@ namespace Database.Common.Test.Storers;
 
 public class TestDataStorer : IDataStorer
 {
-    public CreateUserDTO LastCreatedUser { get; private set; }
+    public CreateUserDTO? LastCreatedUser { get; private set; }
+
+    public GameDTO? LastCreatedGame { get; private set; }
 
     public async Task<UserDTO> CreateUser(string username, string password)
     {
@@ -34,5 +36,35 @@ public class TestDataStorer : IDataStorer
             CreatedAt = DateTime.Now,
             UserId = "1234"
         };
+    }
+
+    public async Task<GameDTO> CreateGame(string gameName, string hostUserId)
+    {
+        if (gameName == "error") throw new Exception("I BROKE IT!!!");
+
+        var hostPlayer = new UserDTO
+        {
+            Username = "test user",
+            CreatedAt = DateTime.Now,
+            UserId = hostUserId
+        };
+
+        LastCreatedGame = new GameDTO
+        {
+            Players = new List<UserDTO> { hostPlayer },
+            GameName = gameName,
+            Host = hostPlayer,
+            GameId = "test id"
+        };
+
+        return LastCreatedGame;
+    }
+
+    public async Task<List<GameDTO>> GetGamesForUser(string userId)
+    {
+        if (LastCreatedGame is null)
+            await CreateGame("test game", userId);
+
+        return new List<GameDTO> { LastCreatedGame! };
     }
 }

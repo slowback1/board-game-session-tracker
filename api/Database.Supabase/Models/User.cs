@@ -1,4 +1,5 @@
-﻿using Postgrest.Attributes;
+﻿using Database.Common.DTOs;
+using Postgrest.Attributes;
 using Postgrest.Models;
 
 namespace Database.Supabase.Models;
@@ -17,4 +18,14 @@ public class User : BaseModel
 
     [Column("created_at")]
     public DateTime CreatedAt { get; set; }
+
+    public UserDTO ToUserDTO()
+    {
+        return new UserDTO
+        {
+            CreatedAt = CreatedAt,
+            UserId = Id,
+            Username = UserName
+        };
+    }
 }
