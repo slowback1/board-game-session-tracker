@@ -26,7 +26,21 @@ public abstract class BaseController : Controller
     public override void OnActionExecuting(ActionExecutingContext context)
     {
         GetAuthenticatedUser();
+        ValidateInputs(context);
+
         base.OnActionExecuting(context);
+    }
+
+    private void ValidateInputs(ActionExecutingContext context)
+    {
+        var values = context.ActionArguments.Values;
+
+        var validationErrors = new List<string>();
+
+        foreach (var value in values) validationErrors.AddRange(Validator.ObjectValidator.ValidateObject(value));
+
+        if (validationErrors.Count > 0)
+            context.Result = Ok(new ApiResponse<object> { Errors = validationErrors });
     }
 
     private void GetAuthenticatedUser()

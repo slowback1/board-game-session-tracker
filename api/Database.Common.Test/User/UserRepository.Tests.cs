@@ -44,48 +44,6 @@ public class UserRepositoryTests : BaseDbTest
     }
 
     [Test]
-    public async Task ReturnsAnErrorMessageIfPasswordsDoNotMatch()
-    {
-        var result = await _repository.CreateUser(new CreateUserDTO
-        {
-            Username = "username",
-            Password = "password1234",
-            ConfirmPassword = "password5555"
-        });
-
-        Assert.That(result.Errors.Count, Is.EqualTo(1));
-        Assert.That(result.Errors[0], Is.EqualTo("Passwords must match."));
-    }
-
-    [Test]
-    public async Task ReturnsAnErrorMessageIfUsernameIsBlank()
-    {
-        var result = await _repository.CreateUser(new CreateUserDTO
-        {
-            Username = "",
-            Password = "password",
-            ConfirmPassword = "password"
-        });
-
-        Assert.That(result.Errors.Count, Is.EqualTo(1));
-        Assert.That(result.Errors[0], Is.EqualTo("'Username' is required."));
-    }
-
-    [Test]
-    public async Task ReturnsAnErrorMessageIfPasswordIsBlank()
-    {
-        var result = await _repository.CreateUser(new CreateUserDTO
-        {
-            Username = "username",
-            Password = "",
-            ConfirmPassword = ""
-        });
-
-        Assert.That(result.Errors.Count, Is.GreaterThan(0));
-        Assert.That(result.Errors[0], Is.EqualTo("'Password' is required."));
-    }
-
-    [Test]
     public async Task CanLoginAndReceiveAToken()
     {
         var result = await _repository.Login(new LoginDTO
@@ -144,29 +102,5 @@ public class UserRepositoryTests : BaseDbTest
 
         Assert.That(result.Errors.Count, Is.GreaterThan(0));
         Assert.That(result.Errors, Contains.Item("Invalid username or password."));
-    }
-
-    [Test]
-    public async Task LoginSendsValidationErrorIfUsernameIsBlank()
-    {
-        var result = await _repository.Login(new LoginDTO
-        {
-            Password = "blank user"
-        });
-
-        Assert.That(result.Errors.Count, Is.GreaterThan(0));
-        Assert.That(result.Errors, Contains.Item("'Username' is required."));
-    }
-
-    [Test]
-    public async Task LoginSendsValidationErrorIfPasswordIsBlank()
-    {
-        var result = await _repository.Login(new LoginDTO
-        {
-            Username = "blank Pass"
-        });
-
-        Assert.That(result.Errors.Count, Is.GreaterThan(0));
-        Assert.That(result.Errors, Contains.Item("'Password' is required."));
     }
 }

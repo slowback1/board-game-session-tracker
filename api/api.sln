@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validator", "Validator\Vali
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validator.Tests", "Validator.Tests\Validator.Tests.csproj", "{97D95591-41B7-4B0B-8B56-A69A8462E099}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUtilities", "TestUtilities\TestUtilities.csproj", "{04A17036-AE3D-44B4-8173-2FCC0C6A84A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{97D95591-41B7-4B0B-8B56-A69A8462E099}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97D95591-41B7-4B0B-8B56-A69A8462E099}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97D95591-41B7-4B0B-8B56-A69A8462E099}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04A17036-AE3D-44B4-8173-2FCC0C6A84A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04A17036-AE3D-44B4-8173-2FCC0C6A84A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04A17036-AE3D-44B4-8173-2FCC0C6A84A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04A17036-AE3D-44B4-8173-2FCC0C6A84A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{17094AD1-913C-49A1-8F41-9C8647BACBD3} = {ACAA6584-DEB4-4EF6-A356-0767ED01B2F1}

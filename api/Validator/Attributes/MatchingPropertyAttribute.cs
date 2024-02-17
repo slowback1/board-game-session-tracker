@@ -29,7 +29,10 @@ public class MatchingPropertyAttribute : ValidationAttribute
         var valueA = propertyA.GetValue(value);
         var valueB = propertyB.GetValue(value);
 
-        if (valueA == valueB) return null;
+        var bothValuesAreNull = valueA == null && valueB == null;
+        var bothValuesHaveTheSameNotNullValue = valueA != null && valueA.Equals(valueB);
+
+        if (bothValuesAreNull || bothValuesHaveTheSameNotNullValue) return null;
 
         return _errorMessage ?? $"'{_propertyA}' must equal '{_propertyB}'.";
     }

@@ -1,5 +1,5 @@
 meta {
-  name: Login (Bad Password)
+  name: Login (Blank)
   type: http
   seq: 6
 }
@@ -12,13 +12,12 @@ post {
 
 body:json {
   {
-      "username": "{{login-username}}-INVALID",
-      "password": "{{test-password}}"
+      "username": "",
+      "password": ""
   }
 }
 
 assert {
   res.status: eq 200
   res.body.response: isNull {{login-username}}
-  res.body.errors[0]: eq Invalid username or password.
 }
