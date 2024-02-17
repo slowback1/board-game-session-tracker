@@ -115,7 +115,7 @@ describe('UserService', () => {
 		it('calls redirect to next page when given a successful response', async () => {
 			await LoginWithSuccessfulResult();
 
-			expect(mockNavigate).toHaveBeenCalledWith(SiteMap.home());
+			expect(mockNavigate).toHaveBeenCalledWith(SiteMap.homeRedirect());
 		});
 
 		it('does not call redirect when given a failing request', async () => {
@@ -173,7 +173,7 @@ describe('UserService', () => {
 		it('redirects the user to the correct url', () => {
 			service.LogOut();
 
-			expect(mockNavigate).toHaveBeenCalledWith(SiteMap.home());
+			expect(mockNavigate).toHaveBeenCalledWith(SiteMap.homeRedirect());
 		});
 	});
 

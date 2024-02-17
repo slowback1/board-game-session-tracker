@@ -30,7 +30,7 @@ export default class UserService {
 	LogOut() {
 		this.clearUserData();
 
-		this.navigateToPage(SiteMap.home());
+		this.navigateToPage(SiteMap.homeRedirect());
 	}
 
 	private clearUserData() {
@@ -46,7 +46,7 @@ export default class UserService {
 
 		this.saveUserDataToMessageBus(result);
 
-		this.navigateToPage(SiteMap.home());
+		this.navigateToPage(SiteMap.homeRedirect());
 	}
 
 	private handleErrorResponse(result: ApiResponse<any>) {

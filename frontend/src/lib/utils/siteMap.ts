@@ -3,5 +3,8 @@ export const SiteMap = {
 		login: () => '/account/login',
 		createUser: () => '/account/create'
 	},
-	home: () => '/'
+	app: {
+		home: () => '/app/home'
+	},
+	homeRedirect: () => '/'
 };
