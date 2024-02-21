@@ -1,6 +1,6 @@
 import { act, fireEvent, render, type RenderResult } from '@testing-library/svelte';
 import RegisterForm from '$lib/partials/users/RegisterForm.svelte';
-import type { CreateUserRequest } from '$lib/api/UserApi';
+import type { CreateUserRequest } from '$lib/api/userApi';
 import { beforeEach, expect } from 'vitest';
 
 describe('RegisterForm', () => {

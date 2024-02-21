@@ -1,5 +1,5 @@
 import { getFetchMock, mockApi } from '$lib/testHelpers/getFetchMock';
-import UserApi from '$lib/api/UserApi';
+import UserApi from '$lib/api/userApi';
 import {
 	testCreateUserRequest,
 	testLoginRequest,

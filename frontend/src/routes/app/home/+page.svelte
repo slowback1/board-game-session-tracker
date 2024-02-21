@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type {UserResponse} from "$lib/api/UserApi";
+    import type {UserResponse} from "$lib/api/userApi";
     import {onMount} from "svelte";
     import MessageBus from "$lib/bus/MessageBus";
     import {Messages} from "$lib/bus/Messages";

@@ -4,7 +4,7 @@ import UserService, { isUserLoggedIn } from '$lib/services/UserService';
 import { getFetchMock } from '$lib/testHelpers/getFetchMock';
 import { testLoginResponse, testUserResponse } from '$lib/testHelpers/testData/testUserData';
 import { testErrorApiResponse } from '$lib/testHelpers/testData/testApiErrorResponses';
-import type { LoginRequest, UserResponse } from '$lib/api/UserApi';
+import type { LoginRequest, UserResponse } from '$lib/api/userApi';
 import { Messages } from '$lib/bus/Messages';
 import { SiteMap } from '$lib/utils/siteMap';
 

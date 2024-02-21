@@ -2,7 +2,7 @@ import UserApi, {
 	type LoginRequest,
 	type LoginResponse,
 	type UserResponse
-} from '$lib/api/UserApi';
+} from '$lib/api/userApi';
 import type { ApiResponse } from '$lib/api/baseApi';
 import MessageBus from '$lib/bus/MessageBus';
 import { Messages } from '$lib/bus/Messages';

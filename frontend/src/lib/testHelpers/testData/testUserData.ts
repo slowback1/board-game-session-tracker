@@ -3,7 +3,7 @@ import type {
 	LoginRequest,
 	LoginResponse,
 	UserResponse
-} from '$lib/api/UserApi';
+} from '$lib/api/userApi';
 
 export const testCreateUserRequest: CreateUserRequest = {
 	password: 'password',
