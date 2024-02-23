@@ -13,6 +13,11 @@ pipeline {
 //                     git GIT_REPOSITORY
 //                 }
 //             }
+            stage('Initialize'){
+                def dockerHome = tool 'myDocker'
+                env.PATH = "${dockerHome}/bin:${env.PATH}"
+            }
+
 
             stage("Build and Push Docker Images") {
                 steps {
