@@ -21,7 +21,7 @@ pipeline {
                             sh "./frontend/scripts/build-docker-image.sh"
                             sh "./api/scripts/build-docker-image.sh"
                         }
-                    }
                 }
             }
         }
+    }
