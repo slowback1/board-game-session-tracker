@@ -12,7 +12,10 @@ export default {
 			fallback: undefined,
 			precompress: false,
 			strict: true
-		})
+		}),
+		prerender: {
+			default: true
+		}
 	},
 	preprocess: [vitePreprocess()]
 };
