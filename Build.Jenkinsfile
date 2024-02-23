@@ -2,7 +2,7 @@ pipeline {
         environment {
             REGISTRY = "slowback1"
             DOCKERHUB_CREDENTIALS_ID = "docker_credentials"
-            GIT_REPOSITORY = "https://github.com/slowback1/board-game-session-tracker.git"
+            GIT_REPOSITORY = "git@github.com:slowback1/board-game-session-tracker.git"
         }
 
         agent any
