@@ -8,11 +8,11 @@ pipeline {
         agent any
 
         stages {
-            stage("Fetch Git Repository") {
-                steps {
-                    git GIT_REPOSITORY
-                }
-            }
+//             stage("Fetch Git Repository") {
+//                 steps {
+//                     git GIT_REPOSITORY
+//                 }
+//             }
 
             stage("Build and Push Docker Images") {
                 steps {
