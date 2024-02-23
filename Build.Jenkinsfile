@@ -8,19 +8,6 @@ pipeline {
         agent any
 
         stages {
-//             stage("Fetch Git Repository") {
-//                 steps {
-//                     git GIT_REPOSITORY
-//                 }
-//             }
-            stage('Initialize'){
-                steps {
-                    def dockerHome = tool 'myDocker'
-                    env.PATH = "${dockerHome}/bin:${env.PATH}"
-                }
-            }
-
-
             stage("Build and Push Docker Images") {
                 steps {
                         withCredentials([usernamePassword(credentialsId: DOCKERHUB_CREDENTIALS_ID, passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
