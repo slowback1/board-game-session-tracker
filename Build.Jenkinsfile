@@ -16,8 +16,8 @@ pipeline {
 
             stage("Build and Push Docker Images") {
                 steps {
-                    container("docker") {
-                        docker.withRegistry(REGISTRY, DOCKERHUB_CREDENTIALS_ID) {
+                        withCredentials([usernamePassword(credentialsId: DOCKERHUB_CREDENTIALS_ID, passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
+                            sh "docker login -u ${DOCKER_REGISTRY_USER} -p ${DOCKER_REGISTRY_PWD}"
                             sh "./frontend/scripts/build-docker-image.sh"
                             sh "./api/scripts/build-docker-image.sh"
                         }
