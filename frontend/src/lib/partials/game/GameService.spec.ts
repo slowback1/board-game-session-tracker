@@ -4,6 +4,8 @@ import GameService from '$lib/partials/game/GameService';
 import { getFetchMock } from '$lib/testHelpers/getFetchMock';
 import { SiteMap } from '$lib/utils/siteMap';
 import { testErrorApiResponse } from '$lib/testHelpers/testData/testApiErrorResponses';
+import UserService from '$lib/services/UserService';
+import { logUserInWithTestData } from '$lib/testHelpers/messageBusSetupHelpers';
 
 describe('GameService', () => {
 	let service: GameService;
@@ -46,6 +48,36 @@ describe('GameService', () => {
 			await service.CreateGame(testCreateGameRequest);
 
 			expect(mockNavigate).not.toHaveBeenCalled();
+		});
+	});
+
+	describe("getting the currently logged in user's list of games", () => {
+		beforeEach(() => {
+			logUserInWithTestData();
+		});
+
+		it('gets calls the API', async () => {
+			let mockFetch = getFetchMock({ response: [testGameResponse] });
+
+			let games = await service.GetListOfGames();
+
+			expect(games).toEqual([testGameResponse]);
+		});
+
+		it('returns an empty array if given an error response', async () => {
+			let mockFetch = getFetchMock(testErrorApiResponse);
+
+			let games = await service.GetListOfGames();
+
+			expect(games).toEqual([]);
+		});
+
+		it('sets the errors on the service object if given an error response', async () => {
+			let mockFetch = getFetchMock(testErrorApiResponse);
+
+			await service.GetListOfGames();
+
+			expect(service.errors).toEqual(testErrorApiResponse.errors);
 		});
 	});
 });

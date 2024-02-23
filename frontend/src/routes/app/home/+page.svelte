@@ -4,6 +4,7 @@
     import MessageBus from "$lib/bus/MessageBus";
     import {Messages} from "$lib/bus/Messages";
     import PageTitle from "$lib/components/page/PageTitle.svelte";
+    import GameList from "$lib/partials/game/GameList.svelte";
 
     let userData: UserResponse;
 
@@ -16,3 +17,5 @@
 
 <p>{userData?.username}</p>
 <p>share code: {userData?.userId}</p>
+
+<GameList/>
