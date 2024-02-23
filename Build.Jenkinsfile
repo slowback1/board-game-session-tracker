@@ -15,9 +15,11 @@ pipeline {
             }
 
             stage("Build and Push Docker Images") {
-                docker.withRegistry(REGISTRY, DOCKERHUB_CREDENTIALS_ID) {
-                    sh "./frontend/scripts/build-docker-image.sh"
-                    sh "./api/scripts/build-docker-image.sh"
+                steps {
+                    docker.withRegistry(REGISTRY, DOCKERHUB_CREDENTIALS_ID) {
+                        sh "./frontend/scripts/build-docker-image.sh"
+                        sh "./api/scripts/build-docker-image.sh"
+                    }
                 }
             }
         }
