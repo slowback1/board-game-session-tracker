@@ -5,7 +5,6 @@
 # PROJECT_NAME: The name of the project.  Defaults to "frontend". ex: my-cool-project-name
 
 REGISTRY=slowback1
-BUILD_NUMBER=1
 PROJECT_NAME=slowback-boardgame-session-tracker-frontend
 
 cd $(git rev-parse --show-toplevel)/frontend || exit 1

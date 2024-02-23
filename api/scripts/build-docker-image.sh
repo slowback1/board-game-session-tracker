@@ -5,7 +5,6 @@
 # PROJECT_NAME: The name of the project.  Defaults to "frontend". ex: my-cool-project-name
 
 REGISTRY=slowback1
-BUILD_NUMBER=1
 PROJECT_NAME=slowback-boardgame-session-tracker-api
 
 cd $(git rev-parse --show-toplevel)/api || exit 1
@@ -27,7 +26,7 @@ fi
 
 TAG="${PROJECT_NAME}:${BUILD_NUMBER}"
 
-docker build -t=${TAG} -f Api.SlowbackBgSession/Dockerfile --target=final .
+docker build -t=${TAG} -f API/Dockerfile --target=final .
 docker image tag ${TAG} ${REGISTRY}/${TAG}
 
 docker image push ${REGISTRY}/${TAG}
