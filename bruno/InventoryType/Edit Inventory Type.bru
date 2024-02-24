@@ -1,0 +1,28 @@
+meta {
+  name: Edit Inventory Type
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{url}}/InventoryTypes/Edit/54206128-c5c4-4642-9fbf-ee15ffdbe768
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "inventoryTypeId": "54206128-c5c4-4642-9fbf-ee15ffdbe768",
+    "name": "test 2",
+    "options": [
+      {
+        "label": "label 2",
+        "value": "value"
+      },
+      {
+        "label": "label 3",
+        "value": "value 3"
+      }
+    ]
+  }
+}

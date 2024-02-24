@@ -9,6 +9,8 @@ public class TestDataStorer : IDataStorer
 
     public GameDTO? LastCreatedGame { get; private set; }
 
+    public InventoryTypeResponse LastCreatedInventoryType { get; private set; }
+
     public async Task<UserDTO> CreateUser(string username, string password)
     {
         LastCreatedUser = new CreateUserDTO
@@ -66,5 +68,68 @@ public class TestDataStorer : IDataStorer
             await CreateGame("test game", userId);
 
         return new List<GameDTO> { LastCreatedGame! };
+    }
+
+    public async Task<InventoryTypeResponse> CreateInventoryType(string gameId, CreateInventoryTypeDTO dto)
+    {
+        LastCreatedInventoryType = new InventoryTypeResponse
+        {
+            GameId = gameId,
+            Name = dto.Name,
+            Options = dto.Options,
+            InventoryTypeId = "1234"
+        };
+
+        return LastCreatedInventoryType;
+    }
+
+    public async Task<InventoryTypeResponse> EditInventoryType(EditInventoryTypeDTO dto)
+    {
+        if (LastCreatedInventoryType is null)
+            await CreateInventoryType("test", dto);
+
+        LastCreatedInventoryType.Name = dto.Name;
+        LastCreatedInventoryType.Options = dto.Options;
+
+        return LastCreatedInventoryType;
+    }
+
+    public async Task<InventoryTypeResponse> GetInventoryTypeById(string id)
+    {
+        return new InventoryTypeResponse
+        {
+            GameId = "1234",
+            Name = "test",
+            Options = new List<InventoryTypeOption>
+            {
+                new()
+                {
+                    Value = "value",
+                    Label = "label"
+                }
+            },
+            InventoryTypeId = id
+        };
+    }
+
+    public async Task<List<InventoryTypeResponse>> GetInventoryTypesForGame(string gameId)
+    {
+        return new List<InventoryTypeResponse>
+        {
+            new()
+            {
+                GameId = gameId,
+                Name = "test",
+                Options = new List<InventoryTypeOption>
+                {
+                    new()
+                    {
+                        Value = "value",
+                        Label = "label"
+                    }
+                },
+                InventoryTypeId = "1234"
+            }
+        };
     }
 }

@@ -108,4 +108,18 @@ public class ObjectValidatorTests
 
         Assert.That(result.Count, Is.EqualTo(1));
     }
+
+    [Test]
+    [TestCase("test")]
+    [TestCase(1)]
+    [TestCase(1.11)]
+    [TestCase(false)]
+    [TestCase('c')]
+    [TestCase(0x11)]
+    public void DoesntBreakWhenGivenANonClassObject(object value)
+    {
+        var result = ObjectValidator.ValidateObject(value);
+
+        Assert.That(result.Count(), Is.EqualTo(0));
+    }
 }

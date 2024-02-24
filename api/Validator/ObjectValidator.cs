@@ -8,7 +8,7 @@ public static class ObjectValidator
 {
     public static List<string> ValidateObject<T>(T? input)
     {
-        if (input is null) return new List<string>();
+        if (ShouldSkipValidating(input)) return new List<string>();
 
         var propertiesToValidate =
             GetValidationAttributesFromProperties(input).Concat(GetValidationAttributesFromClass(input));
@@ -16,6 +16,14 @@ public static class ObjectValidator
         var result = ValidateEachAttribute<T>(propertiesToValidate);
 
         return result;
+    }
+
+    private static bool ShouldSkipValidating<T>(T? input)
+    {
+        if (input is null || input is string) return true;
+
+
+        return false;
     }
 
     private static List<string> ValidateEachAttribute<T>(IEnumerable<PropertyAttributeValuePair> propertiesToValidate)

@@ -1,0 +1,23 @@
+meta {
+  name: Create Inventory Type
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{url}}/InventoryTypes/Create/218b4e87-43a0-42db-873c-805b86a418f8
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "test",
+    "options": [
+      {
+        "label": "label",
+        "value": "value"
+      }
+    ]
+  }
+}
