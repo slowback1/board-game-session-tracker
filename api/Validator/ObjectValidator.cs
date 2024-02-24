@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using Validator.Attributes;
 
 namespace Validator;
@@ -70,7 +71,20 @@ public static class ObjectValidator
                         }),
                     Value = p.GetValue(input)
                 })
-            .Where(v => v.CustomAttributes.Any());
+            .Where(v => v.CustomAttributes.Any())
+            .ToList();
+
+        var enumerableProperties = properties.Where(p => typeof(IEnumerable).IsAssignableFrom(p.PropertyType));
+
+        foreach (var enumerable in enumerableProperties)
+        {
+            var value = enumerable.GetValue(input) as IEnumerable;
+
+            if (value is null) continue;
+
+            foreach (var item in value) propertiesToValidate.AddRange(GetValidationAttributesFromProperties(item));
+        }
+
         return propertiesToValidate;
     }
 

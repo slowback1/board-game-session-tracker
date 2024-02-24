@@ -21,6 +21,17 @@ public class TestEmpty
     public string A { get; set; }
 }
 
+public class Child
+{
+    [Length(min: 2)]
+    public string Value { get; set; }
+}
+
+public class ParentList
+{
+    public List<Child> Children { get; set; }
+}
+
 public class ObjectValidatorTests
 {
     [Test]
@@ -86,5 +97,15 @@ public class ObjectValidatorTests
         var result = ObjectValidator.ValidateObject(test);
 
         Assert.That(result.Count, Is.EqualTo(0));
+    }
+
+    [Test]
+    public void CanGetValidationErrorsFromChildObjectsInAList()
+    {
+        var test = new ParentList { Children = new List<Child> { new() { Value = "A" } } };
+
+        var result = ObjectValidator.ValidateObject(test);
+
+        Assert.That(result.Count, Is.EqualTo(1));
     }
 }

@@ -53,4 +53,34 @@ public class LengthAttributeTests
 
         Assert.That(result, Is.EqualTo("'p' is shorter than 3 characters."));
     }
+
+    [Test]
+    public void CanValidateLengthOfAnEnumerable()
+    {
+        var attribute = new LengthAttribute(min: 1);
+
+        var result = attribute.CheckForValidationError(new List<string> { "value" });
+
+        Assert.That(result, Is.Null);
+    }
+
+    [Test]
+    public void ValidatesWhenAListIsTooShort()
+    {
+        var attribute = new LengthAttribute(min: 3);
+
+        var result = attribute.CheckForValidationError(new List<string> { "value", "value2" });
+
+        Assert.That(result, Is.EqualTo("List ('value', 'value2') is shorter than 3 items."));
+    }
+
+    [Test]
+    public void ValidatesWhenAListIsTooLong()
+    {
+        var attribute = new LengthAttribute(2);
+
+        var result = attribute.CheckForValidationError(new List<string> { "value", "value2", "value3" });
+
+        Assert.That(result, Is.EqualTo("List ('value', 'value2', 'value3') is longer than 2 items."));
+    }
 }
