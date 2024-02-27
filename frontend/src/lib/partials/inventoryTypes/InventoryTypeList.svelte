@@ -44,7 +44,7 @@
                     {inventoryType.options.length}
                 </td>
                 <td>
-                    <Button variant="secondary" testId="inventory-type-list__row-edit"
+                    <Button size="small" variant="text" testId="inventory-type-list__row-edit"
                             href={SiteMap.inventoryTypes.edit(inventoryType.inventoryTypeId)}>
                         Edit
                     </Button>
@@ -73,5 +73,10 @@
     .inventory-type-list__table {
         width: 100%;
         margin-top: 32px;
+    }
+
+    td, th {
+        border: 1px solid;
+        padding: 12px;
     }
 </style>
