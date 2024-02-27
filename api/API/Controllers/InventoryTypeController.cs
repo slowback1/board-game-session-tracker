@@ -18,29 +18,35 @@ public class InventoryTypeController : BaseController
 
     [HttpGet]
     [Route("{id}")]
-    public async Task<InventoryTypeResponse> GetInventoryTypeById(string id)
+    public async Task<ApiResponse<InventoryTypeResponse>> GetInventoryTypeById(string id)
     {
-        return await _repository.GetInventoryTypeById(id);
+        return new ApiResponse<InventoryTypeResponse>
+        {
+            Response = await _repository.GetInventoryTypeById(id)
+        };
     }
 
     [HttpPost]
     [Route("Create/{gameId}")]
-    public async Task<InventoryTypeResponse> CreateInventoryType(string gameId, [FromBody] CreateInventoryTypeDTO dto)
+    public async Task<ApiResponse<InventoryTypeResponse>> CreateInventoryType(string gameId,
+        [FromBody] CreateInventoryTypeDTO dto)
     {
-        return await _repository.CreateInventoryType(gameId, dto);
+        return new ApiResponse<InventoryTypeResponse> { Response = await _repository.CreateInventoryType(gameId, dto) };
     }
 
     [HttpPut]
     [Route("Edit/{id}")]
-    public async Task<InventoryTypeResponse> EditInventoryType(string id, [FromBody] EditInventoryTypeDTO dto)
+    public async Task<ApiResponse<InventoryTypeResponse>> EditInventoryType(string id,
+        [FromBody] EditInventoryTypeDTO dto)
     {
-        return await _repository.EditInventoryType(dto);
+        return new ApiResponse<InventoryTypeResponse> { Response = await _repository.EditInventoryType(dto) };
     }
 
     [HttpGet]
     [Route("ForGame/{gameId}")]
-    public async Task<List<InventoryTypeResponse>> GetInventoryTypesForGame(string gameId)
+    public async Task<ApiResponse<List<InventoryTypeResponse>>> GetInventoryTypesForGame(string gameId)
     {
-        return await _repository.GetInventoryTypesForGame(gameId);
+        return new ApiResponse<List<InventoryTypeResponse>>
+            { Response = await _repository.GetInventoryTypesForGame(gameId) };
     }
 }

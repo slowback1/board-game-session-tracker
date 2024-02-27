@@ -3,6 +3,10 @@ export const SiteMap = {
 		login: () => '/account/login',
 		createUser: () => '/account/create'
 	},
+	inventoryTypes: {
+		create: (gameId: string) => `/app/inventory-type/create/${gameId}`,
+		edit: (inventoryTypeId: string) => `/app/inventory-type/edit/${inventoryTypeId}`
+	},
 	app: {
 		home: () => '/app/home'
 	},

@@ -35,6 +35,8 @@ main {
     --color-error-background: #ee8989;
     --color-error-font: #af1906;
 
+    --color-green-baseline: #46c045;
+
     --color-background: #e1e1e1;
     --color-font: #101010;
 }
@@ -55,6 +57,7 @@ main {
     --color-error-font: #af1906;
 
     --color-green-baseline: #46c045;
+    --color-blue-baseline: #2b35b2;
 
     --color-background: #111;
     --color-font: #efefef;
