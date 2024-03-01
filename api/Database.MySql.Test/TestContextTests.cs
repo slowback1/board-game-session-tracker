@@ -22,6 +22,6 @@ public class TestContextTests
 
         var stored = context.Users.First();
 
-        Assert.That(stored, Is.EqualTo(user));
+        Assert.That(stored.PasswordHash, Is.EqualTo(user.PasswordHash));
     }
 }

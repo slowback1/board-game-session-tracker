@@ -10,6 +10,7 @@ public class TestContext : ApplicationDbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseInMemoryDatabase("board-game-sessions");
+        var randomString = new Random().NextDouble().ToString();
+        optionsBuilder.UseInMemoryDatabase(randomString);
     }
 }

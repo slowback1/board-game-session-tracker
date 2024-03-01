@@ -14,7 +14,7 @@ public class DataStorerFactoryTests
     {
         var factory = new DataStorerFactory(new DataStorerConfig { Use = key });
         factory.SupabaseConfig = new SupabaseConfig { Key = "key", Url = "url" };
-        factory.DatabaseConfig = new DatabaseConfig { ConnectionString = "connection_string" };
+        factory.DatabaseConfig = new DatabaseConfig { ConnectionString = "" };
 
         var storer = factory.GetDataStorerFromConfig();
 

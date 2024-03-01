@@ -3,16 +3,13 @@ using Database.Common.Storers;
 
 namespace Database.MySql;
 
-public class MySqlDataStorer : IDataStorer
+public partial class MySqlDataStorer : IDataStorer
 {
-    public Task<UserDTO> CreateUser(string username, string password)
-    {
-        throw new NotImplementedException();
-    }
+    protected readonly ApplicationDbContext _context;
 
-    public Task<UserDTO?> VerifyLogin(string username, string password)
+    public MySqlDataStorer(ApplicationDbContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
     }
 
     public Task<GameDTO> CreateGame(string gameName, string hostUserId)
