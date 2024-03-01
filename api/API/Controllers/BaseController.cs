@@ -1,8 +1,8 @@
 ﻿using API.Config;
+using API.Utils;
 using Database.Common.DTOs;
 using Database.Common.Storers;
 using Database.Common.User;
-using Database.Supabase;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -15,13 +15,25 @@ public abstract class BaseController : Controller
 
     public BaseController(IConfiguration config)
     {
-        var supabaseConfig = config.GetSection("Supabase").Get<SupabaseConfig>()!;
         JwtConfig = config.GetSection("Jwt").Get<JwtConfig>()!;
 
-        Storer = new SupabaseStorer(supabaseConfig.Url, supabaseConfig.Key);
+        Storer = LoadFromConfigToGetDataStorer(config);
     }
 
     protected UserDTO? AuthenticatedUser { get; private set; }
+
+    private IDataStorer LoadFromConfigToGetDataStorer(IConfiguration config)
+    {
+        var supabaseConfig = config.GetSection("Supabase").Get<SupabaseConfig>()!;
+        var databaseConfig = config.GetSection("Database").Get<DatabaseConfig>()!;
+        var dataStorerConfig = config.GetSection("DataStorer").Get<DataStorerConfig>()!;
+
+        var factory = new DataStorerFactory(dataStorerConfig);
+        factory.DatabaseConfig = databaseConfig;
+        factory.SupabaseConfig = supabaseConfig;
+
+        return factory.GetDataStorerFromConfig();
+    }
 
     public override void OnActionExecuting(ActionExecutingContext context)
     {
