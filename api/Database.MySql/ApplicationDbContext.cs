@@ -1,12 +1,17 @@
 ﻿using Database.MySql.Models;
 using Microsoft.EntityFrameworkCore;
-using MySql.Data.MySqlClient;
 
 namespace Database.MySql;
 
 public class ApplicationDbContext : DbContext
 {
     private readonly string _connectionString;
+
+    public ApplicationDbContext()
+    {
+        //connection string used in local DB for ease of creating/applying migrations
+        _connectionString = "Server=127.0.0.1;Database=boardGame;user=root;pwd=password";
+    }
 
     public ApplicationDbContext(string connectionString)
     {
@@ -35,7 +40,6 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseMySQL(new MySqlConnection(_connectionString));
-        base.OnConfiguring(optionsBuilder);
+        optionsBuilder.UseMySQL(_connectionString);
     }
 }

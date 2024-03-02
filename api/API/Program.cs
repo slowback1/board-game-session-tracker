@@ -1,3 +1,5 @@
+using API;
+
 var builder = WebApplication.CreateBuilder(args);
 var corsOrigins = "*";
 builder.Configuration.SetBasePath(builder.Environment.ContentRootPath).AddJsonFile("appsettings.json");
@@ -21,6 +23,8 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+await Startup.MigrateDatabase(app.Configuration);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
