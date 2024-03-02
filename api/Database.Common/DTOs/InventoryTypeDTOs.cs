@@ -15,6 +15,7 @@ public class CreateInventoryTypeDTO
 public class EditInventoryTypeDTO : CreateInventoryTypeDTO
 {
     [Required]
+    [ValidGuid]
     public string InventoryTypeId { get; set; }
 }
 

@@ -61,6 +61,7 @@ public class InventoryTypeDTOTests
     {
         typeof(EditInventoryTypeDTO)
             .HasProperty(nameof(EditInventoryTypeDTO.InventoryTypeId))
-            .PropertyHasAttribute<RequiredAttribute>();
+            .PropertyHasAttribute<RequiredAttribute>()
+            .PropertyHasAttribute<ValidGuidAttribute>();
     }
 }
