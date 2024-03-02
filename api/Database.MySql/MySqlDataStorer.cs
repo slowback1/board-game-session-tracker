@@ -12,16 +12,6 @@ public partial class MySqlDataStorer : IDataStorer
         _context = context;
     }
 
-    public Task<GameDTO> CreateGame(string gameName, string hostUserId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<List<GameDTO>> GetGamesForUser(string userId)
-    {
-        throw new NotImplementedException();
-    }
-
     public Task<InventoryTypeResponse> CreateInventoryType(string gameId, CreateInventoryTypeDTO dto)
     {
         throw new NotImplementedException();
