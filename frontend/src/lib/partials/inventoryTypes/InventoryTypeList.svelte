@@ -45,7 +45,7 @@
                 </td>
                 <td>
                     <Button size="small" variant="text" testId="inventory-type-list__row-edit"
-                            href={SiteMap.inventoryTypes.edit(inventoryType.inventoryTypeId)}>
+                            href={SiteMap.inventoryTypes.edit(gameId, inventoryType.inventoryTypeId)}>
                         Edit
                     </Button>
                 </td>

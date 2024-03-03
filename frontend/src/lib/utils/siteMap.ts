@@ -4,8 +4,9 @@ export const SiteMap = {
 		createUser: () => '/account/create'
 	},
 	inventoryTypes: {
-		create: (gameId: string) => `/app/inventory-type/create/${gameId}`,
-		edit: (inventoryTypeId: string) => `/app/inventory-type/edit/${inventoryTypeId}`
+		create: (gameId: string) => `/app/inventory-type/${gameId}/create`,
+		edit: (gameId: string, inventoryTypeId: string) =>
+			`/app/inventory-type/${gameId}/edit/${inventoryTypeId}`
 	},
 	app: {
 		home: () => '/app/home'

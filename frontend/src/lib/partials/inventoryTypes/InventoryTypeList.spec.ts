@@ -59,7 +59,7 @@ describe('InventoryTypeList', () => {
 			expect(cell).toBeInTheDocument();
 			expect(cell).toHaveAttribute(
 				'href',
-				SiteMap.inventoryTypes.edit(testInventoryTypeResponse.inventoryTypeId)
+				SiteMap.inventoryTypes.edit('1234', testInventoryTypeResponse.inventoryTypeId)
 			);
 		});
 	});

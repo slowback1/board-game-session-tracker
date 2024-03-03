@@ -12,7 +12,7 @@ export const testInventoryTypeOption: InventoryTypeOption = {
 
 export const testInventoryTypeResponse: InventoryTypeResponse = {
 	inventoryTypeId: '1234',
-	options: [testInventoryTypeOption],
+	options: [testInventoryTypeOption, testInventoryTypeOption],
 	name: 'test name',
 	gameId: 'a1-2b'
 };
