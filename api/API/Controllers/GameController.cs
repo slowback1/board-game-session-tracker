@@ -37,4 +37,11 @@ public class GameController : BaseController
     {
         return await _repository.AddUserToGame(AuthenticatedUser!.UserId, gameId);
     }
+
+    [HttpGet]
+    [Route("{gameId}")]
+    public async Task<ApiResponse<GameDTO>> GetGameById(string gameId)
+    {
+        return await _repository.GetGameById(gameId);
+    }
 }

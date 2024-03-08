@@ -94,4 +94,22 @@ public class GameRepositoryTests : BaseDbTest
         Assert.That(result.Errors, Is.Not.Null);
         Assert.That(result.Errors.Count, Is.GreaterThan(0));
     }
+
+    [Test]
+    public async Task CanGetGameById()
+    {
+        var result = await _repository.GetGameById("game");
+
+        Assert.That(result.Response, Is.Not.Null);
+        Assert.That(result.Response.GameId, Is.EqualTo(DataStorer.LastCreatedGame.GameId));
+    }
+
+    [Test]
+    public async Task GetGameByIdReturnsErrorResponseIfNoGameFound()
+    {
+        var result = await _repository.GetGameById("null");
+
+        Assert.That(result.Errors, Is.Not.Null);
+        Assert.That(result.Errors!.First(), Contains.Substring("not found"));
+    }
 }

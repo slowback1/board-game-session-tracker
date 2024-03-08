@@ -34,6 +34,15 @@ public class GameRepository : DbRepository
         return Success(result);
     }
 
+    public async Task<ApiResponse<GameDTO>> GetGameById(string gameId)
+    {
+        var game = await _storer.GetGameById(gameId);
+
+        if (game is null) return Error<GameDTO>("Game not found.");
+
+        return Success(game);
+    }
+
     private List<string>? GetErrorsForCreateGameResult(GameDTO? dto)
     {
         if (dto is null)
