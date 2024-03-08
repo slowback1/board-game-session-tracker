@@ -31,7 +31,7 @@ public partial class MySqlDataStorer
         var games = await _context.Games
             .Include(g => g.HostUser)
             .Include(g => g.Players)
-            .Where(g => g.HostUserId == Guid.Parse(userId))
+            .Where(g => g.HostUserId == Guid.Parse(userId) || g.Players.Any(p => p.Id == Guid.Parse(userId)))
             .ToListAsync();
 
         return games.Select(ConvertToDTO).ToList();

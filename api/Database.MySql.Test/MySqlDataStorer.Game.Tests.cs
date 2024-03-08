@@ -85,6 +85,18 @@ public class MySqlDataStorer_Game_Tests_GetGamesForUser : MySqlDataStorerGameTes
         Assert.That(firstItem.Players.Count(), Is.EqualTo(1));
         Assert.That(firstItem.Players.First().UserId, Is.EqualTo(_userId));
     }
+
+    [Test]
+    public async Task AlsoReturnsGamesWhereTheUserIsJustAPlayer()
+    {
+        var secondUser = await _repository.CreateUser("user2", "password");
+
+        await _repository.AddUserToGame(secondUser.UserId, _game.Id.ToString());
+
+        var gameList = await _repository.GetGamesForUser(secondUser.UserId);
+
+        Assert.That(gameList.Count, Is.EqualTo(1));
+    }
 }
 
 public class MySqlDataStorer_Game_Tests_GameGameById : MySqlDataStorerGameTestBase
