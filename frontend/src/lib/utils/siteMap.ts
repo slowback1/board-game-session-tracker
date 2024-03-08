@@ -13,7 +13,8 @@ export const SiteMap = {
 	},
 	game: {
 		create: () => '/app/game/create',
-		home: (id: string) => `/app/game/${id}/dashboard`
+		home: (id: string) => `/app/game/${id}/dashboard`,
+		join: (id: string) => `/app/game/${id}/join`
 	},
 	homeRedirect: () => '/'
 };

@@ -20,4 +20,12 @@ export default class GameApi extends BaseApi {
 	async GetGamesForUser(): Promise<ApiResponse<GameResponse[]>> {
 		return await this.Get('/Game/ForUser');
 	}
+
+	async AddSelfToGame(gameId: string): Promise<ApiResponse<GameResponse>> {
+		return await this.Post(`/Game/AddPlayer/${gameId}`, undefined);
+	}
+
+	async GetGameById(gameId: string): Promise<ApiResponse<GameResponse>> {
+		return await this.Get(`/Game/${gameId}`);
+	}
 }

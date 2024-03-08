@@ -9,7 +9,9 @@ describe('GameApi', () => {
 	beforeEach(() => {
 		mockFetch = mockApi({
 			Game: { response: testGameResponse },
-			'Game/ForUser': { response: [testGameResponse] }
+			'Game/ForUser': { response: [testGameResponse] },
+			'Game/AddPlayer/game': { response: testGameResponse },
+			'Game/game': { response: testGameResponse }
 		});
 	});
 
@@ -34,6 +36,28 @@ describe('GameApi', () => {
 		let [url, options] = mockFetch.mock.lastCall;
 
 		expect(url).toContain('Game/ForUser');
+		expect(options.method).toEqual('GET');
+	});
+
+	it('calls the correct URL and method to get add the user to a game', async () => {
+		let result = await api.AddSelfToGame('game');
+
+		expect(mockFetch).toHaveBeenCalled();
+
+		let [url, options] = mockFetch.mock.lastCall;
+
+		expect(url).toContain('Game/AddPlayer/game');
+		expect(options.method).toEqual('POST');
+	});
+
+	it('calls the correct URL and method to get a game by id', async () => {
+		let result = await api.GetGameById('game');
+
+		expect(mockFetch).toHaveBeenCalled();
+
+		let [url, options] = mockFetch.mock.lastCall;
+
+		expect(url).toContain('Game/game');
 		expect(options.method).toEqual('GET');
 	});
 });
