@@ -132,4 +132,30 @@ public class TestDataStorer : IDataStorer
             }
         };
     }
+
+    public async Task<GameDTO> AddUserToGame(string userId, string gameId)
+    {
+        if (userId == "error" || gameId == "error")
+            throw new Exception("Error!");
+
+        if (LastCreatedGame is null)
+            await CreateGame("create me", "not-the-user-id-probably");
+
+        if (LastCreatedUser is null)
+            await CreateUser(userId, "password");
+
+        LastCreatedGame!.Players.Add(new UserDTO { UserId = userId, Username = LastCreatedUser!.Username });
+
+        return LastCreatedGame;
+    }
+
+    public async Task<GameDTO?> GetGameById(string gameId)
+    {
+        if (gameId == "null") return null;
+
+        if (LastCreatedGame is null)
+            await CreateGame("create me", "user-id");
+
+        return LastCreatedGame!;
+    }
 }

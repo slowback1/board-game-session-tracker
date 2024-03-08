@@ -37,6 +37,39 @@ public partial class MySqlDataStorer
         return games.Select(ConvertToDTO).ToList();
     }
 
+    public async Task<GameDTO> AddUserToGame(string userId, string gameId)
+    {
+        var game = await GetGameEntityById(gameId);
+
+        if (game is null) throw new Exception("Game not found");
+
+        var player = await _context.Users.FirstOrDefaultAsync(u => u.Id == Guid.Parse(userId));
+
+        if (player is null) throw new Exception("Player not found");
+
+        game.Players.Add(player);
+
+        await _context.SaveChangesAsync();
+
+        return ConvertToDTO(game);
+    }
+
+    public async Task<GameDTO?> GetGameById(string gameId)
+    {
+        var game = await GetGameEntityById(gameId);
+
+        if (game is null) return null;
+
+        return ConvertToDTO(game);
+    }
+
+    private async Task<Game?> GetGameEntityById(string gameId)
+    {
+        return await _context.Games
+            .Include(g => g.Players)
+            .FirstOrDefaultAsync(g => g.Id == Guid.Parse(gameId));
+    }
+
     private GameDTO ConvertToDTO(Game game)
     {
         return new GameDTO

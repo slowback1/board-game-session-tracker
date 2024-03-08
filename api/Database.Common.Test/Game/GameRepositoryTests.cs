@@ -54,4 +54,44 @@ public class GameRepositoryTests : BaseDbTest
         Assert.That(result.Response, Is.Not.Null);
         Assert.That(result.Response.Count, Is.GreaterThan(0));
     }
+
+    [Test]
+    public async Task ReturnsTheGameWithTheUserAddedToIt()
+    {
+        var result = await _repository.AddUserToGame("user", "game");
+
+        Assert.That(result, Is.Not.Null);
+
+        Assert.That(result.Response.Players.Select(p => p.UserId), Contains.Item("user"));
+        Assert.That(result.Response, Is.EqualTo(DataStorer.LastCreatedGame));
+    }
+
+    [Test]
+    public async Task DoesNotAddTheSamePlayerTwiceWhenTryingToAddThePlayerTwice()
+    {
+        var result = await _repository.AddUserToGame("user", "game");
+        var beforeCount = result.Response.Players.Count();
+        var result2 = await _repository.AddUserToGame("user", "game");
+        var afterCount = result2.Response.Players.Count();
+
+        Assert.That(beforeCount, Is.EqualTo(afterCount));
+    }
+
+    [Test]
+    public async Task ReturnsAnErrorResultIfGameIsNotFound()
+    {
+        var result = await _repository.AddUserToGame("user", "null");
+
+        Assert.That(result.Errors, Is.Not.Null);
+        Assert.That(result.Errors!.First().ToLower(), Contains.Substring("not found"));
+    }
+
+    [Test]
+    public async Task ReturnsAnErrorResultIfPlayerAddeningErrors()
+    {
+        var result = await _repository.AddUserToGame("error", "error");
+
+        Assert.That(result.Errors, Is.Not.Null);
+        Assert.That(result.Errors.Count, Is.GreaterThan(0));
+    }
 }

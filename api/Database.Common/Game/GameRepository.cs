@@ -22,21 +22,16 @@ public class GameRepository : DbRepository
             Console.WriteLine(E);
         }
 
-        return new ApiResponse<GameDTO>
-        {
-            Response = result,
-            Errors = GetErrorsForCreateGameResult(result)
-        };
+        var errors = GetErrorsForCreateGameResult(result);
+
+        return errors is null ? Success(result!) : Error<GameDTO>(errors);
     }
 
     public async Task<ApiResponse<List<GameDTO>>> GetGamesForUser(string userId)
     {
         var result = await _storer.GetGamesForUser(userId);
 
-        return new ApiResponse<List<GameDTO>>
-        {
-            Response = result
-        };
+        return Success(result);
     }
 
     private List<string>? GetErrorsForCreateGameResult(GameDTO? dto)
@@ -48,5 +43,32 @@ public class GameRepository : DbRepository
             };
 
         return null;
+    }
+
+    public async Task<ApiResponse<GameDTO>> AddUserToGame(string userId, string gameId)
+    {
+        var storedGame = await _storer.GetGameById(gameId);
+
+        if (storedGame is null)
+            return Error<GameDTO>("Game not found.");
+
+        if (storedGame.Players.Any(p => p.UserId == userId))
+            return Success(storedGame);
+
+        return await TryToAddUserToGame(userId, gameId);
+    }
+
+    private async Task<ApiResponse<GameDTO>> TryToAddUserToGame(string userId, string gameId)
+    {
+        try
+        {
+            var game = await _storer.AddUserToGame(userId, gameId);
+
+            return Success(game);
+        }
+        catch (Exception e)
+        {
+            return Error<GameDTO>(e.Message);
+        }
     }
 }

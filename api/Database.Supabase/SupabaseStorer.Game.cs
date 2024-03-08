@@ -40,6 +40,16 @@ public partial class SupabaseStorer
         return gameDtos;
     }
 
+    public Task<GameDTO> AddUserToGame(string userId, string gameId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<GameDTO> GetGameById(string gameId)
+    {
+        throw new NotImplementedException();
+    }
+
     private async Task<GameDTO> GetGameFromId(string gameId)
     {
         var gameResponse = await _client.From<Game>().Where(g => g.Id == gameId).Get();
