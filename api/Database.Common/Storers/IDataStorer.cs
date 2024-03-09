@@ -14,4 +14,6 @@ public interface IDataStorer
     Task<List<InventoryTypeResponse>> GetInventoryTypesForGame(string gameId);
     Task<GameDTO> AddUserToGame(string userId, string gameId);
     Task<GameDTO?> GetGameById(string gameId);
+    Task<List<PlayerInventory>?> GetInventoryForGame(string gameId);
+    Task<PlayerInventoryItem> UpdateInventoryForPlayer(string gameId, UpdatePlayerInventoryRequest request);
 }

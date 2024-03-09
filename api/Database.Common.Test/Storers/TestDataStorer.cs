@@ -11,6 +11,8 @@ public class TestDataStorer : IDataStorer
 
     public InventoryTypeResponse LastCreatedInventoryType { get; private set; }
 
+    public PlayerInventoryItem LastUpdateInventoryItem { get; private set; }
+
     public async Task<UserDTO> CreateUser(string username, string password)
     {
         LastCreatedUser = new CreateUserDTO
@@ -157,5 +159,53 @@ public class TestDataStorer : IDataStorer
             await CreateGame("create me", "user-id");
 
         return LastCreatedGame!;
+    }
+
+    public async Task<List<PlayerInventory>?> GetInventoryForGame(string gameId)
+    {
+        if (gameId == "null") return null;
+
+        return new List<PlayerInventory>
+        {
+            GetTestPlayerInventory()
+        };
+    }
+
+    public async Task<PlayerInventoryItem> UpdateInventoryForPlayer(string gameId, UpdatePlayerInventoryRequest request)
+    {
+        LastUpdateInventoryItem = new PlayerInventoryItem
+        {
+            Amount = request.Amount,
+            Name = "test",
+            InventoryTypeOptionId = request.InventoryTypeOptionId
+        };
+
+        return LastUpdateInventoryItem;
+    }
+
+    private PlayerInventory GetTestPlayerInventory()
+    {
+        return new PlayerInventory
+        {
+            Inventory = new List<PlayerInventoryItemGroup>
+            {
+                new()
+                {
+                    InventoryTypeName = "type",
+                    InventoryTypeId = "1",
+                    Items = new List<PlayerInventoryItem>
+                    {
+                        new()
+                        {
+                            Name = "test",
+                            Amount = 1,
+                            InventoryTypeOptionId = "1"
+                        }
+                    }
+                }
+            },
+            PlayerId = "bob",
+            PlayerName = "bob"
+        };
     }
 }
