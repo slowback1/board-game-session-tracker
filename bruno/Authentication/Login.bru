@@ -24,6 +24,8 @@ assert {
 
 script:post-response {
   let token = res.getBody().response.token;
+  let userId = res.getBody().response.user.userId;
   
   bru.setEnvVar("token", token);
+  bru.setVar("userId", userId);
 }

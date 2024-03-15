@@ -1,0 +1,17 @@
+meta {
+  name: Get Player Inventory For Game
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url}}/PlayerInventory/{{gameId}}
+  body: none
+  auth: none
+}
+
+script:post-response {
+  let inventoryTypeOptionId = res.getBody().response[0].inventory[0].items[0].inventoryTypeOptionId;
+  
+  bru.setVar("inventoryTypeOptionId", inventoryTypeOptionId);
+}

@@ -1,0 +1,18 @@
+meta {
+  name: Update All Player Inventories
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{url}}/PlayerInventory/{{gameId}}/AllPlayers
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "InventoryTypeOptionId": "{{inventoryTypeOptionId}}",
+    "amountChanged": 5
+  }
+}

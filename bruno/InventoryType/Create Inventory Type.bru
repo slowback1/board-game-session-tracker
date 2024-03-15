@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{url}}/InventoryTypes/Create/218b4e87-43a0-42db-873c-805b86a418f8
+  url: {{url}}/InventoryTypes/Create/{{gameId}}
   body: json
   auth: none
 }
@@ -20,4 +20,8 @@ body:json {
       }
     ]
   }
+}
+
+script:post-response {
+  bru.setVar("inventoryTypeId", "a836d135-eaa0-44ba-a444-08dc449cc009");
 }

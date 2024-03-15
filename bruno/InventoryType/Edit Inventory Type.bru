@@ -5,14 +5,14 @@ meta {
 }
 
 put {
-  url: {{url}}/InventoryTypes/Edit/54206128-c5c4-4642-9fbf-ee15ffdbe768
+  url: {{url}}/InventoryTypes/Edit/{{inventoryTypeId}}
   body: json
   auth: none
 }
 
 body:json {
   {
-    "inventoryTypeId": "54206128-c5c4-4642-9fbf-ee15ffdbe768",
+    "inventoryTypeId": "{{inventoryTypeId}}",
     "name": "test 2",
     "options": [
       {

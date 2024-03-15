@@ -17,5 +17,9 @@ body:json {
 }
 
 assert {
-  res.body.response: isDefined 
+  res.body.response: isDefined
+}
+
+script:post-response {
+  bru.setVar("gameId", res.getBody().response.gameId);
 }
