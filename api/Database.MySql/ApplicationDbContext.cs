@@ -10,7 +10,7 @@ public class ApplicationDbContext : DbContext
     public ApplicationDbContext()
     {
         //connection string used in local DB for ease of creating/applying migrations
-        _connectionString = "Server=127.0.0.1;Database=boardGame;user=root;pwd=password";
+        _connectionString = "Server=127.0.0.1;Database=boardGame;user=user;pwd=password";
     }
 
     public ApplicationDbContext(string connectionString)
@@ -22,6 +22,8 @@ public class ApplicationDbContext : DbContext
     public virtual DbSet<Game> Games { get; set; }
     public virtual DbSet<InventoryType> InventoryTypes { get; set; }
     public virtual DbSet<InventoryTypeOption> InventoryTypeOptions { get; set; }
+    public virtual DbSet<PlayerItem> PlayerItems { get; set; }
+    public virtual DbSet<PlayerItemGroup> PlayerItemGroups { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
