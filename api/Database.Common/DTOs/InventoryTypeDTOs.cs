@@ -9,6 +9,7 @@ public class CreateInventoryTypeDTO
 
     [Required]
     [Length(min: 1)]
+    [UniqueListValue(nameof(InventoryTypeOption.Value), "Option values must be unique!")]
     public List<InventoryTypeOption> Options { get; set; }
 }
 

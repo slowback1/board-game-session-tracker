@@ -20,7 +20,8 @@ public class InventoryTypeDTOTests
         typeof(CreateInventoryTypeDTO)
             .HasProperty(nameof(CreateInventoryTypeDTO.Options))
             .PropertyHasAttribute<RequiredAttribute>()
-            .PropertyHasAttribute<LengthAttribute>();
+            .PropertyHasAttribute<LengthAttribute>()
+            .PropertyHasAttribute<UniqueListValueAttribute>();
     }
 
     [Test]
