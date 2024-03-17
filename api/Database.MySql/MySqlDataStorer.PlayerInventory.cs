@@ -30,8 +30,7 @@ public partial class MySqlDataStorer
 
         var existingGroup = await _context.PlayerItemGroups.Include(i => i.Items)
             .FirstOrDefaultAsync(g =>
-                g.PlayerId == Guid.Parse(request.PlayerId) && g.Items.Any(i =>
-                    i.InventoryTypeOptionId == Guid.Parse(request.InventoryTypeOptionId)));
+                g.PlayerId == Guid.Parse(request.PlayerId) && g.InventoryTypeId == option.InventoryTypeId);
 
 
         if (existingGroup is null)

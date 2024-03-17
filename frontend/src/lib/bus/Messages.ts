@@ -4,5 +4,6 @@ export const Messages = {
 	ApplicationConfig: 'application_config',
 	ToastData: 'toast_data',
 	UserToken: 'user_token',
-	UserData: 'user_data'
+	UserData: 'user_data',
+	PlayerInventory: 'player_inventory'
 };
