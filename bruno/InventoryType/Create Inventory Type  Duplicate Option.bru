@@ -1,0 +1,31 @@
+meta {
+  name: Create Inventory Type  Duplicate Option
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{url}}/InventoryTypes/Create/{{gameId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "test",
+    "options": [
+      {
+        "label": "label",
+        "value": "value"
+      },
+      {
+        "label": "label",
+        "value": "value"
+      }
+    ]
+  }
+}
+
+script:post-response {
+  bru.setVar("inventoryTypeId", "a836d135-eaa0-44ba-a444-08dc449cc009");
+}

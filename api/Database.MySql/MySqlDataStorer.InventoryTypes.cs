@@ -33,11 +33,7 @@ public partial class MySqlDataStorer
         var stored = await GetInventoryTypeModelById(dto.InventoryTypeId);
 
         stored.Name = dto.Name;
-        stored.Options = dto.Options.Select(o => new InventoryTypeOption
-        {
-            Label = o.Label,
-            Value = o.Value
-        }).ToList();
+        stored.Options = GetNewSetOfInventoryTypeOptions(stored, dto.Options);
 
         await _context.SaveChangesAsync();
 
@@ -61,6 +57,36 @@ public partial class MySqlDataStorer
             .ToListAsync();
 
         return inventoryTypes.Select(ConvertToDTO).ToList();
+    }
+
+    private List<InventoryTypeOption> GetNewSetOfInventoryTypeOptions(InventoryType stored,
+        List<Common.DTOs.InventoryTypeOption> newSetOfOptions)
+    {
+        var options = new List<InventoryTypeOption>();
+
+        foreach (var option in stored.Options)
+        {
+            var matching = newSetOfOptions.FirstOrDefault(o => o.Value == option.Value);
+
+            if (matching is not null)
+            {
+                option.Label = matching.Label;
+
+                options.Add(option);
+            }
+        }
+
+        var newOptions = newSetOfOptions
+            .Where(o => stored.Options.All(opt => opt.Value != o.Value))
+            .Select(o => new InventoryTypeOption
+            {
+                Label = o.Label,
+                Value = o.Value
+            });
+
+        options.AddRange(newOptions);
+
+        return options;
     }
 
     private async Task<InventoryType> GetInventoryTypeModelById(string id)
