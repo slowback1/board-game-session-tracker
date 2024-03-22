@@ -17,7 +17,7 @@
 
         MessageBus.subscribe<PlayerInventory[]>(Messages.PlayerInventory, value => {
             playerInventory = value ?? []
-            if (playerInventory.length > 0 && selectedInventoryTypeId === "")
+            if (playerInventory.length > 0 && selectedInventoryTypeId === "" && playerInventory[0].inventory.length > 0)
                 selectedInventoryTypeId = playerInventory[0].inventory[0].inventoryTypeId;
 
         });
@@ -28,6 +28,7 @@
     }
 
     $:isLoaded = !!playerInventory && playerInventory.length > 0;
+    $:hasInventoryTypes = isLoaded && playerInventory[0].inventory.length > 0;
     $:inventoryTypes = isLoaded ? playerInventory[0].inventory.map(si => ({
         inventoryTypeId: si.inventoryTypeId,
         inventoryTypeName: si.inventoryTypeName,
@@ -38,6 +39,10 @@
 
 {#if !isLoaded}
     <LoadingIndicator/>
+{:else if !hasInventoryTypes}
+    <p data-testid="player-inventory__add-inventory-type-message">
+        No inventory types found. Please add an inventory type to get started.
+    </p>
 {:else}
     <select bind:value={selectedInventoryTypeId} data-testid="player-inventory__inventory-type-select">
         {#each inventoryTypes as inventoryType}

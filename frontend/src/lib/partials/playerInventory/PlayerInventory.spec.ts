@@ -160,4 +160,38 @@ describe('PlayerInventory', () => {
 			}
 		);
 	});
+
+	describe('when the data is loaded but there are no inventory types', () => {
+		beforeEach(async () => {
+			mockFetch = getFetchMock({ response: [{ ...testPlayerInventory, inventory: [] }] });
+			result.unmount();
+			result = render(PlayerInventory, { gameId: 'game' });
+
+			await waitFor(() => {
+				let loadingIndicator = result.queryByTestId('loading-indicator');
+
+				expect(loadingIndicator).not.toBeInTheDocument();
+			});
+		});
+
+		it.each(['player-inventory__inventory-type-select', 'player-inventory-group__player-name'])(
+			'does not try to display the %s element',
+			async (testId) => {
+				await waitFor(() => {
+					let elements = result.queryAllByTestId(testId);
+
+					expect(elements.length).toEqual(0);
+				});
+			}
+		);
+
+		it('displays a message to tell the user to add inventory types before continuing', async () => {
+			await waitFor(() => {
+				let message = result.getByTestId('player-inventory__add-inventory-type-message');
+
+				expect(message).toBeInTheDocument();
+				expect(message).toHaveTextContent('Please add an inventory type to get started');
+			});
+		});
+	});
 });
