@@ -40,8 +40,8 @@
         align-items: center;
         margin: 0;
         padding-inline: var(--gutters-x);
-        background-color: var(--color-primary-background);
-        color: var(--color-primary-font);
+        background-color: color-mix(in lab, var(--color-green-baseline), var(--color-background) 30%);
+        color: color-mix(in lab, var(--color-green-baseline), var(--color-font) 55%);
         height: var(--header-height);
         gap: 12px;
     }

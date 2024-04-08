@@ -26,13 +26,13 @@
 
 </script>
 
-<fieldset class="text-box__wrapper">
+<div class="text-box__wrapper">
     <label class="text-box__label" data-testid={id + "-label"} for={id}>
         {label}
     </label>
     <input class="text-box" data-testid={id} {type} value={boundValue} on:input={handleInput} on:change={onChange}
            {id}/>
-</fieldset>
+</div>
 
 <style global>
     .text-box__wrapper {

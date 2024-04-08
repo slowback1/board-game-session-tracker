@@ -1,24 +1,24 @@
 <script lang="ts">
-  export let testId: string = "";
-  type ButtonVariant = "primary" | "secondary" | "text";
-  type ButtonSize = "small" | "medium" | "large";
-  export let variant: ButtonVariant = "primary";
-  export let size: ButtonSize = "medium";
-  export let href: string = undefined;
-  export let disabled: boolean = false;
-  export let tabIndex: number = 0;
-  export let onClick: (event: Event) => void = () => {
-  };
+    export let testId: string = "";
+    type ButtonVariant = "primary" | "secondary" | "text";
+    type ButtonSize = "small" | "medium" | "large";
+    export let variant: ButtonVariant = "primary";
+    export let size: ButtonSize = "medium";
+    export let href: string = undefined;
+    export let disabled: boolean = false;
+    export let tabIndex: number = 0;
+    export let onClick: (event: Event) => void = () => {
+    };
 
-  const isSecondary = variant === "secondary";
-  const isPrimary = variant === "primary";
-  const isText = variant === "text";
+    const isSecondary = variant === "secondary";
+    const isPrimary = variant === "primary";
+    const isText = variant === "text";
 
-  const isSmall = size === "small";
-  const isLarge = size === "large";
+    const isSmall = size === "small";
+    const isLarge = size === "large";
 
-  const tag = !!href ? "a" : "button";
-  const role = tag === "a" ? "link": "button";
+    const tag = !!href ? "a" : "button";
+    const role = tag === "a" ? "link" : "button";
 </script>
 
 <svelte:element this={tag}
@@ -34,8 +34,8 @@
                 data-testid={testId}
                 role={role}
                 tabIndex="{tabIndex}"
-                >
-    <slot> Button Content Goes Here </slot>
+>
+    <slot> Button Content Goes Here</slot>
 </svelte:element>
 
 <style>
@@ -47,6 +47,7 @@
         font-family: var(--font-family-primary);
         font-size: var(--font-size-medium);
         transition: background-color 0.5s ease-in-out;
+        text-align: center;
     }
 
     .button:hover {
@@ -54,7 +55,7 @@
     }
 
     .button:disabled {
-      opacity: 0.5;
+        opacity: 0.5;
     }
 
     .button-small {
@@ -67,35 +68,32 @@
     }
 
     .button-primary {
-        background-color: var(--color-primary-background);
-        color: var(--color-primary-font);
-        border-color: var(--color-primary-border);
+        background-color: var(--color-blue-baseline);
+        color: color-mix(in lab, #efefef 85%, var(--color-blue-baseline));
     }
 
     .button-primary:hover, .button-primary:focus {
-        background-color: var(--color-primary-background-highlight);
+        background-color: color-mix(in lab, var(--color-blue-baseline), var(--color-background) 20%);
+        color: color-mix(in lab, #efefef 95%, var(--color-blue-baseline));
     }
 
     .button-secondary {
         background-color: transparent;
-        color: var(--color-secondary-font);
-        border-color: var(--color-secondary-border);
+        color: color-mix(in lab, var(--color-font) 25%, var(--color-green-baseline));
     }
 
     .button-secondary:hover, .button-secondary:focus {
-        background-color: var(--color-secondary-background);
-        color: var(--color-secondary-background-font);
+        background-color: color-mix(in lab, var(--color-green-baseline), var(--color-background) 20%);
+        color: color-mix(in lab, var(--color-font) 95%, var(--color-green-baseline));
     }
 
     .button-text {
         background-color: transparent;
-        color: var(--color-font);
+        color: color-mix(in lab, var(--color-font) 25%, var(--color-green-baseline));
         border-color: transparent;
     }
 
     .button-text:hover, .button-text:focus {
-        background-color: var(--color-primary-background);
-        color: var(--color-primary-font);
-        border-color: var(--color-primary-border);
+        color: color-mix(in lab, var(--color-font) 45%, var(--color-green-baseline));
     }
 </style>

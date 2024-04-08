@@ -21,6 +21,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        gap: var(--flex-gap-large);
     }
 
     .form-wrapper__form {
@@ -32,5 +33,6 @@
         background-color: var(--color-card-background);
         color: var(--color-green-baseline);
         padding: var(--padding-medium) var(--padding-large);
+        width: calc(100% - var(--padding-large) * 2);
     }
 </style>

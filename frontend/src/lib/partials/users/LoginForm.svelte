@@ -26,7 +26,7 @@
     <Button testId="login-form__submit">
         Log In
     </Button>
-    <Button testId="login-form__register-link" href={SiteMap.account.createUser()}>
+    <Button variant="text" testId="login-form__register-link" href={SiteMap.account.createUser()}>
         New User
     </Button>
 </FormWrapper>
