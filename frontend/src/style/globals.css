@@ -18,46 +18,43 @@ main {
     --gutters-y: 12px;
     --gutters-x: 24px;
     --header-height: 64px;
+
+    /* Flex Gaps */
+
+    --flex-gap-small: 4px;
+    --flex-gap-medium: 8px;
+    --flex-gap-large: 16px;
+
+    /* Paddings */
+
+    --padding-small: 4px;
+    --padding-medium: 12px;
+    --padding-large: 24px;
+
+
+    /* Mixed Colors */
+    --color-card-background: color-mix(in lab, var(--color-background), currentColor 30%);
 }
 
 .light-theme {
-    --color-primary-background: #1248c7;
-    --color-primary-font: #fff;
-    --color-primary-border: #3a43b2;
-
-    --color-secondary-background: rgba(68, 82, 122, 0.38);
-    --color-secondary-font: #c9c9c9;
-    --color-secondary-border: #50b730;
-
-    --color-card-background: #d7d0d0;
-    --color-card-font: #121212;
-
     --color-error-background: #ee8989;
     --color-error-font: #af1906;
 
     --color-green-baseline: #46c045;
+    --color-blue-baseline: #2b35b2;
+    --color-red-baseline: #bd1616;
 
     --color-background: #e1e1e1;
     --color-font: #101010;
 }
 
 .dark-theme {
-    --color-primary-background: #1b3a8d;
-    --color-primary-font: #fff;
-    --color-primary-border: #3a43b2;
-
-    --color-secondary-background: rgba(1, 12, 42, 0.38);
-    --color-secondary-font: #8a8585;
-    --color-secondary-border: #162742;
-
-    --color-card-background: #030a50;
-    --color-card-font: #e7e7e7;
-
     --color-error-background: #da6b6b;
     --color-error-font: #af1906;
 
     --color-green-baseline: #46c045;
     --color-blue-baseline: #2b35b2;
+    --color-red-baseline: #bd1616;
 
     --color-background: #111;
     --color-font: #efefef;

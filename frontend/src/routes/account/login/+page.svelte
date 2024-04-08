@@ -12,7 +12,11 @@
         errors = service.errors;
     }
 </script>
-
+<head>
+    <title>
+        Log In
+    </title>
+</head>
 <LoginForm
         onSubmit={onSubmit}
         errors={errors}

@@ -16,7 +16,6 @@
 
 <style>
     .form-wrapper {
-        width: clamp(300px, 33vw, 1000px);
         margin-inline: auto;
         display: flex;
         flex-direction: column;
@@ -25,12 +24,13 @@
     }
 
     .form-wrapper__form {
+        --text-box-color__override: color-mix(in lab, var(--color-green-baseline), var(--color-font) 45%);
+
         display: flex;
         flex-direction: column;
-        gap: 12px;
-        margin-top: 24px;
+        gap: var(--flex-gap-medium);
         background-color: var(--color-card-background);
-        color: var(--color-card-font);
-        padding: 24px 32px;
+        color: var(--color-green-baseline);
+        padding: var(--padding-medium) var(--padding-large);
     }
 </style>
